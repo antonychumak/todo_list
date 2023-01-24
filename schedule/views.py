@@ -1,18 +1,36 @@
 from django.shortcuts import render
-from django.urls import path
 
-from schedule.urls import (
-    index,
-    TaskCreateView,
-    TagCreateView,
-    TagUpdateView,
-    TagDeleteView
-)
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.views import generic
 
-urlpatterns = [
-    path("", index, name="index"),
-    path("tasks/create", TaskCreateView.as_view, name="task-create"),
-    path("tags/create", TagCreateView.as_view, name="tag-create"),
-    path("tags/<int:pk>/update/", TagUpdateView.as_view, name="tag-update"),
-    path("tasks/<int:pk>/delete/", TagDeleteView.as_view, name="task-delete"),
-    ]
+from schedule.models import Task, Tag
+
+
+@login_required
+def index(request):
+    """View function for the home page of the site."""
+
+    context = {
+        "todo_list": Task.objects.all(),
+        "tags": Tag.objects.all()
+    }
+
+    return render(request, "schedule/index.html", context=context)
+
+
+class TaskCreateView(generic.CreateView):
+    pass
+
+
+class TagCreateView(generic.CreateView):
+    pass
+
+
+class TagUpdateView(generic.UpdateView):
+    pass
+
+
+class TagDeleteView(generic.DeleteView):
+    pass
+
