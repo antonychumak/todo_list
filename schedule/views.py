@@ -9,8 +9,6 @@ from schedule.models import Task, Tag
 
 @login_required
 def index(request):
-    """View function for the home page of the site."""
-
     context = {
         "todo_list": Task.objects.all(),
         "tags": Tag.objects.all()
