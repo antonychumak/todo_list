@@ -10,13 +10,13 @@ class Tag(models.Model):
 
 class Task(models.Model):
     content = models.TextField()
-    create_date = models.DateField(auto_created=True)
-    deadline = models.DateField(auto_now_add=True)
-    marks = models.BooleanField()
+    create_date = models.DateTimeField(auto_created=True)
+    deadline = models.DateTimeField()
+    marks = models.BooleanField(default=False)
     tags = models.ForeignKey(Tag, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ["create_date", "-marks"]
+        ordering = ["marks", "-create_date"]
 
     def __str__(self):
-        return f"{self.content} {self.marks}"
+        return f"{self.content} {self.marks} {self.tags}"
