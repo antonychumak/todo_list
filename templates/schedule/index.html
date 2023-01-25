@@ -1,14 +1,49 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>TODO list</title>
-</head>
-<body>
+{% extends 'base.html' %}
+  <head>
+    <title>Home | Schedule</title>
+  </head>
+  {% block content %}
+    <h1>
+      TODO list
+      <a style="float: right" class="btn btn-primary" href="#">Add task</a>
+    </h1>
+    <div style="color: gray;">Current time: {% now "jS F Y H:i" %}</div>
+    {% if todo_list %}
+    <table class="table">
+      <tbody>
+        {% for t in todo_list %}
+        <ul>
+            <tr>
+              <td>
+              {% if now <= t.deadline or not t.marks %}
+                {{ t.marks }}
+                <h4><strong>{{ t.content }} </strong>
+                  <text style="color:Tomato;">Not Done</text></h4>
+                    <a style="float: right;" class="btn btn-outline-info" href="#">Complete</a>
+                    <div>Created: {{ t.create_date }}</div>
+                      <p style="color: dimgray"><h5>Tags: {{ t.tags }}
+                      <a href="#">UPDATE</a>
+                      <a href="#">DELETE</a></h5></p>
+              {% else %}
+                    {{ t.marks }}
+                    <h4><strong>{{ t.content }}</strong>
+                    <text style="color:MediumSeaGreen">Done</text></h4>
+                    <a style="float: right" class="btn btn-outline-dark" href="#">Undo</a>
+                    <div>Created: {{ t.create_date }} <text style="color: Tomato;">Deadline {{ t.deadline }}</text> </div>
+                    <strong>Tags:</strong> {{ t.tags }}
+                    <a  href="#">UPDATE</a>
+                    <a href="#">DELETE</a>
+              </td>
+            {% endif %}
+            </tr>
+        </ul>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+      <p>There are no tasks</p>
+    {% endif %}
+  {% endblock %}
 
 
-</body>
-</html>
