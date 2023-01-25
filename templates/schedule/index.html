@@ -21,7 +21,7 @@
                   <text style="color:Tomato;">Not Done</text></h4>
                     <a style="float: right;" class="btn btn-outline-info" href="#">Complete</a>
                     <div>Created: {{ t.create_date }}</div>
-                      <p style="color: dimgray"><h5>Tags: {{ t.tags }}
+                      <p ><h5 style="color: gray">Tags: {{ t.tags.name }}
                       <a href="#">UPDATE</a>
                       <a href="#">DELETE</a></h5></p>
               {% else %}
@@ -30,9 +30,9 @@
                     <text style="color:MediumSeaGreen">Done</text></h4>
                     <a style="float: right" class="btn btn-outline-dark" href="#">Undo</a>
                     <div>Created: {{ t.create_date }} <text style="color: Tomato;">Deadline {{ t.deadline }}</text> </div>
-                    <strong>Tags:</strong> {{ t.tags }}
-                    <a  href="#">UPDATE</a>
-                    <a href="#">DELETE</a>
+                    <p style="color: dimgray"><h5 style="color: gray">Tags: {{ t.tags.name }}
+                      <a href="#">UPDATE</a>
+                      <a href="#">DELETE</a></h5></p>
               </td>
             {% endif %}
             </tr>
