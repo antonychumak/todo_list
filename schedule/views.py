@@ -1,13 +1,11 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.views import generic
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from schedule.models import Task, Tag
 
 
-@login_required
 def index(request):
     context = {
         "todo_list": Task.objects.all(),
@@ -24,26 +22,37 @@ def tags_list_view(request):
     return render(request, "schedule/tags.html", context=context)
 
 
-class TaskCreateView(generic.CreateView):
-    pass
+class TaskCreateView(CreateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("schedule:index")
 
 
-class TaskUpdateView(generic.UpdateView):
-    pass
+class TaskUpdateView(UpdateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("schedule:index")
 
 
-class TaskDeleteView(generic.DeleteView):
-    pass
+class TaskDeleteView(DeleteView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("schedule:index")
 
 
-class TagCreateView(generic.CreateView):
-    pass
+class TagCreateView(CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("schedule:tags")
 
 
-class TagUpdateView(generic.UpdateView):
-    pass
+class TagUpdateView(UpdateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("schedule:tags")
 
 
-class TagDeleteView(generic.DeleteView):
-    pass
-
+class TagDeleteView(DeleteView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("schedule:tags")
