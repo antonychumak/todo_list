@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Tag(models.Model):
@@ -21,13 +20,8 @@ class Task(models.Model):
     marks = models.BooleanField(default=False, verbose_name="Execution mark")
     tags = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name="Tag name")
 
-    # def get_absolute_url(self):
-    #     return reverse("taxi:driver-detail", kwargs={"pk": self.pk})
-
     def __str__(self):
         return f"{self.content} {self.marks} {self.tags}"
 
     class Meta:
         ordering = ["marks", "-create_date"]
-
-
