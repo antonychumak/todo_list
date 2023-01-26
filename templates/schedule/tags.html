@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+  <h1>Tags <a style="float: right" class="btn btn-primary" href="{% url 'schedule:tag-create' %}">Add</a></h1>
+  <br>
   <table class="table">
   <thead>
     <tr>
@@ -14,9 +17,9 @@
       {% for tag in tags %}
         <tr>
       <th scope="row">{{ tag.name }}</th>
-      <td><a href="{% url 'schedule:tag-update' pk=tag.id %}"></a></td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td><a class="btn btn-outline-primary"  href="{% url 'schedule:tag-update' tag.slug %}">Update</a></td>
+      <td><a class="btn btn-outline-danger" href="{% url 'schedule:tag-delete' tag.slug %}">Delete</a></td>
+      <td></td>
     </tr>
 
       {% endfor %}

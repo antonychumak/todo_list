@@ -5,7 +5,7 @@
   {% block content %}
     <h1>
       TODO list
-      <a style="float: right" class="btn btn-primary" href="#">Add task</a>
+      <a style="float: right" class="btn btn-primary" href="{% url 'schedule:task-create' %}">Add task</a>
     </h1>
     <div style="color: gray;">Current time: {% now "jS F Y H:i" %}</div>
     {% if todo_list %}
@@ -19,31 +19,30 @@
                 {{ t.marks }}
                 <h4><strong>{{ t.content }} </strong>
                   <text style="color:Tomato;">Not Done</text></h4>
-                    <a style="float: right;" class="btn btn-outline-info" href="#">Complete</a>
+                <a style="float: right;" class="btn btn-outline-info" href="#">Complete</a>
                     <div>Created: {{ t.create_date }}</div>
-                      <p ><h5 style="color: gray">Tags: {{ t.tags.name }}
-                      <a href="#">UPDATE</a>
-                      <a href="#">DELETE</a></h5></p>
+                      <tag ><h5 style="color: gray">Tags: {{ t.tags.name }}
+                        <a href="{% url 'schedule:task-update' t.slug %}">UPDATE</a>
+                        <a href="{% url 'schedule:task-delete' t.slug %}">DELETE</a></h5>
+                      </tag>
               {% else %}
-                    {{ t.marks }}
-                    <h4><strong>{{ t.content }}</strong>
-                    <text style="color:MediumSeaGreen">Done</text></h4>
+                {{ t.marks }}
+                <h4><strong>{{ t.content }}</strong>
+                  <text style="color:MediumSeaGreen">Done</text></h4>
                     <a style="float: right" class="btn btn-outline-dark" href="#">Undo</a>
                     <div>Created: {{ t.create_date }} <text style="color: Tomato;">Deadline {{ t.deadline }}</text> </div>
-                    <p style="color: dimgray"><h5 style="color: gray">Tags: {{ t.tags.name }}
-                      <a href="#">UPDATE</a>
-                      <a href="#">DELETE</a></h5></p>
-              </td>
-            {% endif %}
+                      <tag style="color: dimgray"><h5 style="color: gray">Tags: {{ t.tags.name }}
+                        <a href="{% url 'schedule:task-update' t.slug %}">UPDATE</a>
+                        <a href="{% url 'schedule:task-delete' t.slug %}">DELETE</a></h5>
+                      </tag>
+                    </td>
+              {% endif %}
             </tr>
         </ul>
       {% endfor %}
       </tbody>
     </table>
-
     {% else %}
       <p>There are no tasks</p>
     {% endif %}
   {% endblock %}
-
-
