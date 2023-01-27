@@ -16,7 +16,6 @@
             <tr>
               <td>
               {% if now <= t.deadline or not t.marks %}
-                {{ t.marks }}
                 <h4><strong>{{ t.content }} </strong>
                   <text style="color:Tomato;">Not Done</text></h4>
                 <a style="float: right;" class="btn btn-outline-info" href="#">Complete</a>
@@ -26,8 +25,7 @@
                         <a href="{% url 'schedule:task-delete' t.slug %}">DELETE</a></h5>
                       </tag>
               {% else %}
-                {{ t.marks }}
-                <h4><strong>{{ t.content }}</strong>
+                 <h4><strong>{{ t.content }}</strong>
                   <text style="color:MediumSeaGreen">Done</text></h4>
                     <a style="float: right" class="btn btn-outline-dark" href="#">Undo</a>
                     <div>Created: {{ t.create_date }} <text style="color: Tomato;">Deadline {{ t.deadline }}</text> </div>
