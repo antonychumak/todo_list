@@ -11,27 +11,33 @@
     {% if todo_list %}
     <table class="table">
       <tbody>
-        {% for t in todo_list %}
+        {% for todo in todo_list %}
         <ul>
             <tr>
               <td>
-              {% if now <= t.deadline or not t.marks %}
-                <h4><strong>{{ t.content }} </strong>
+              {% if now <= todo.deadline or not todo.is_mark %}
+                <h4><strong>{{ todo.content }} </strong>
                   <text style="color:Tomato;">Not Done</text></h4>
                 <a style="float: right;" class="btn btn-outline-info" href="#">Complete</a>
-                    <div>Created: {{ t.create_date }}</div>
-                      <tag ><h5 style="color: gray">Tags: {{ t.tags.name }}
-                        <a href="{% url 'schedule:task-update' t.slug %}">UPDATE</a>
-                        <a href="{% url 'schedule:task-delete' t.slug %}">DELETE</a></h5>
+                    <div>Created: {{ todo.create_date }}</div>
+                      <tag ><h5 style="color: gray">Tags:
+                        {% for tag in todo.tags.all %}
+                          {{ tag.name }}
+                        {% endfor %}
+                        <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
+                        <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
                       </tag>
               {% else %}
-                 <h4><strong>{{ t.content }}</strong>
+                 <h4><strong>{{ todo.content }}</strong>
                   <text style="color:MediumSeaGreen">Done</text></h4>
                     <a style="float: right" class="btn btn-outline-dark" href="#">Undo</a>
-                    <div>Created: {{ t.create_date }} <text style="color: Tomato;">Deadline {{ t.deadline }}</text> </div>
-                      <tag style="color: dimgray"><h5 style="color: gray">Tags: {{ t.tags.name }}
-                        <a href="{% url 'schedule:task-update' t.slug %}">UPDATE</a>
-                        <a href="{% url 'schedule:task-delete' t.slug %}">DELETE</a></h5>
+                    <div>Created: {{ todo.create_date }} <text style="color: Tomato;">Deadline {{ todo.deadline }}</text> </div>
+                      <tag style="color: dimgray"><h5 style="color: gray">Tags:
+                        {% for tag in todo.tags.all %}
+                          {{ tag.name }}
+                        {% endfor %}
+                        <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
+                        <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
                       </tag>
                     </td>
               {% endif %}
