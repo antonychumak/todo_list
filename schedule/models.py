@@ -5,11 +5,11 @@ class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name="Tag name")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["name"]
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
@@ -17,11 +17,11 @@ class Task(models.Model):
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     create_date = models.DateTimeField(auto_now_add=True, verbose_name="Create date")
     deadline = models.DateTimeField(auto_now=False, verbose_name="Deadline")
-    marks = models.BooleanField(default=False, verbose_name="Execution mark")
-    tags = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name="Tag name")
-
-    def __str__(self):
-        return f"{self.content} {self.marks} {self.tags}"
+    is_mark = models.BooleanField(default=False, verbose_name="Execution mark")
+    tags = models.ManyToManyField(Tag, related_name="tasks")
 
     class Meta:
-        ordering = ["marks", "-create_date"]
+        ordering = ["is_mark", "-create_date"]
+
+    def __str__(self):
+        return f"{self.content} {self.is_mark} {self.tags}"
