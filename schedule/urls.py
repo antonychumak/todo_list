@@ -8,7 +8,8 @@ from .views import (
     TaskDeleteView,
     TagCreateView,
     TagUpdateView,
-    TagDeleteView
+    TagDeleteView,
+    MarkUpdateView
 )
 
 urlpatterns = [
@@ -44,6 +45,11 @@ urlpatterns = [
         TaskDeleteView.as_view(),
         name="task-delete"
     ),
+    path(
+        "tasks/<slug:slug>/mark/",
+        MarkUpdateView.as_view(),
+        name="task-change"
+    )
 ]
 
 app_name = "schedule"

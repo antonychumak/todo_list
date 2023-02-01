@@ -22,6 +22,12 @@ def tags_list_view(request):
     return render(request, "schedule/tags.html", context=context)
 
 
+class MarkUpdateView(UpdateView):
+    model = Task
+    fields = ("is_mark",)
+    success_url = reverse_lazy("schedule:index")
+
+
 class TaskCreateView(CreateView):
     model = Task
     fields = "__all__"
