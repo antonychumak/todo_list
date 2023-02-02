@@ -20,22 +20,26 @@
                   <text style="color:Tomato;">Not Done</text></h4>
                 <a style="float: right;" class="btn btn-outline-info" href="{% url 'schedule:task-change' todo.slug %}">Complete</a>
                     <div>Created: {{ todo.create_date }}</div>
-                      <tag ><h5 style="color: gray">Tags:
+                      {% if todo.tags.all %}
+                        <tag ><h5 style="color: gray; margin-top: 10px;">Tags:
                         {% for tag in todo.tags.all %}
                           {{ tag.name }}
                         {% endfor %}
+                      {% endif %}
                         <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
                         <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
                       </tag>
-              {% else %}
+                  {% else %}
                  <h4><strong>{{ todo.content }}</strong>
                   <text style="color:MediumSeaGreen">Done</text></h4>
                     <a style="float: right" class="btn btn-outline-dark" href="{% url 'schedule:task-change' todo.slug %}">Undo</a>
-                    <div>Created: {{ todo.create_date }} <text style="color: Tomato;">Deadline {{ todo.deadline }}</text> </div>
-                      <tag style="color: dimgray"><h5 style="color: gray">Tags:
+                    <div>Created: {{ todo.create_date }} <text style="color: Tomato;">/ Deadline: {{ todo.deadline }}</text> </div>
+                      {% if todo.tags.all %}
+                        <tag ><h5 style="color: gray; margin-top: 10px;">Tags:
                         {% for tag in todo.tags.all %}
                           {{ tag.name }}
                         {% endfor %}
+                      {% endif %}
                         <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
                         <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
                       </tag>
