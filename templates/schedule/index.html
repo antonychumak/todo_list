@@ -5,7 +5,7 @@
   {% block content %}
     <h1>
       TODO list
-      <a style="margin-left: 250px" class="btn btn-primary" href="{% url 'schedule:task-create' %}">Add task</a>
+      <a style="margin-left: 150px;" class="btn btn-primary" href="{% url 'schedule:task-create' %}">Add task</a>
     </h1>
     <div style="color: gray;">Current time: {% now "jS F Y H:i" %}</div>
     {% if todo_list %}

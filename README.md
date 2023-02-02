@@ -12,7 +12,6 @@ git clone https://github.com/anton-chumak-main/todo_list.git
 cd todo_list
 python3 -m venv venv
 source venv/bin/activate
-export SECRET_KEY=<your DJANGO_SECRET_KEY>
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
