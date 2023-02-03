@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 
 from django.views.generic import CreateView, UpdateView, DeleteView
 
@@ -22,10 +23,15 @@ def tags_list_view(request):
     return render(request, "schedule/tags.html", context=context)
 
 
-class MarkUpdateView(UpdateView):
-    model = Task
-    fields = ("is_mark",)
-    success_url = reverse_lazy("schedule:index")
+class MarkUpdateView(View):
+    def post(self, request, slug):
+        task = Task.objects.get(slug=slug)
+        task.is_mark = not task.is_mark
+        task.save()
+        return redirect("schedule:index")
+
+    def get(self, request, **kwargs):
+        return redirect("schedule:index")
 
 
 class TaskCreateView(CreateView):
