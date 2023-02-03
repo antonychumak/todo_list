@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load change_button %}
+
   <head>
     <title>Home | Schedule</title>
   </head>
@@ -18,7 +20,7 @@
               {% if now <= todo.deadline or not todo.is_mark %}
                 <h4><strong>{{ todo.content }} </strong>
                   <text style="color:Tomato;">Not Done</text></h4>
-                <a style="float: right;" class="btn btn-outline-info" href="{% url 'schedule:task-change' todo.slug %}">Complete</a>
+                  <button><a style="float: right;" class="btn btn-outline-info" href="{% url 'schedule:task-change' todo.slug %}">Complete</a></button>
                     <div>Created: {{ todo.create_date }}</div>
                       {% if todo.tags.all %}
                         <tag ><h5 style="color: gray; margin-top: 10px;">Tags:
@@ -32,7 +34,7 @@
                   {% else %}
                  <h4><strong>{{ todo.content }}</strong>
                   <text style="color:MediumSeaGreen">Done</text></h4>
-                    <a style="float: right" class="btn btn-outline-dark" href="{% url 'schedule:task-change' todo.slug %}">Undo</a>
+                    <button ><a style="float: right" class="page-link" href="{% update_btn_text   %}">Undo</a></button>
                     <div>Created: {{ todo.create_date }} <text style="color: Tomato;">/ Deadline: {{ todo.deadline }}</text> </div>
                       {% if todo.tags.all %}
                         <tag ><h5 style="color: gray; margin-top: 10px;">Tags:
