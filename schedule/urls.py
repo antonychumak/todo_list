@@ -16,7 +16,7 @@ urlpatterns = [
     path("", index, name="index"),
     path("tags/", tags_list_view, name="tags"),
     path(
-        "tag/create",
+        "tag/create/",
         TagCreateView.as_view(),
         name="tag-create"
     ),
@@ -31,7 +31,7 @@ urlpatterns = [
         name="tag-delete"
     ),
     path(
-        "tasks/create",
+        "tasks/create/",
         TaskCreateView.as_view(),
         name="task-create"
     ),

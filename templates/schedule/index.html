@@ -1,62 +1,46 @@
 {% extends 'base.html' %}
-  <head>
-    <title>Home | Schedule</title>
-  </head>
+
+<head>
+  <title>Home | Schedule</title>
+</head>
+<body>
   {% block content %}
-    <h1>
-      TODO list
-      <a style="margin-left: 150px;" class="btn btn-primary" href="{% url 'schedule:task-create' %}">Add task</a>
-    </h1>
+    <h1>TODO list<a style="margin-left: 150px;" class="btn btn-primary" href="{% url 'schedule:task-create' %}">Add task</a></h1>
     <div style="color: gray;">Current time: {% now "jS F Y H:i" %}</div>
     {% if todo_list %}
-    <table class="table">
-      <tbody>
-        {% for todo in todo_list %}
-        <ul>
-            <tr>
-              <td>
-              {% if now <= todo.deadline or not todo.is_mark %}
-                <h4><strong>{{ todo.content }} </strong>
-                  <text style="color:Tomato;">Not Done</text></h4>
-                      <form action="{% url 'schedule:task-change' todo.slug %}" method="post" novalidate>
-                      {% csrf_token %}
-                        <button style="float: right" class="btn btn-outline-info" type="submit">Complete</button>
-                      </form>
-                    <div>Created: {{ todo.create_date }}</div>
-                      {% if todo.tags.all %}
-                        <tag ><h5 style="color: gray; margin-top: 10px;">Tags:
-                        {% for tag in todo.tags.all %}
-                          {{ tag.name }}
-                        {% endfor %}
-                      {% endif %}
-                        <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
-                        <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
-                      </tag>
-                  {% else %}
-                 <h4><strong>{{ todo.content }}</strong>
-                  <text style="color:MediumSeaGreen">Done</text></h4>
-                    <form action="{% url 'schedule:task-change' todo.slug %}" method="post" novalidate>
-                      {% csrf_token %}
-                        <button style="float: right" class="btn btn-outline-secondary" type="submit">Undo</button>
-                    </form>
-                    <div>Created: {{ todo.create_date }} <text style="color: Tomato;">/ Deadline: {{ todo.deadline }}</text> </div>
-                      {% if todo.tags.all %}
-                        <tag ><h5 style="color: gray; margin-top: 10px;">Tags:
-                        {% for tag in todo.tags.all %}
-                          {{ tag.name }}
-                        {% endfor %}
-                      {% endif %}
-                        <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
-                        <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
-                      </tag>
-                    </td>
-              {% endif %}
-            </tr>
-        </ul>
+      <table class="table">
+   <tbody>
+    {% for todo in todo_list %}
+    <tr>
+      <th scope="col">
+      <form action="{% url 'schedule:task-change' todo.slug %}" method="post" novalidate>
+      {% csrf_token %}
+        <h5 style="float: left;"><strong > {{ todo.content }} </strong></h5>
+        {% if todo.is_mark %}
+          <h5 style="color: red; text-indent: 30px">Not Done</h5>
+            <button style="float: right;" class="btn btn-outline-info" type="submit">Complete</button>
+          <h5> Created: {{ todo.create_date }} <em style="color: Tomato;">/ Deadline: {{ todo.deadline }}</em></h5>
+        {% else %}
+          <h5 style="color: MediumSeaGreen; text-indent: 30px;">Done</h5>
+            <button style="float: right;" class="btn btn-outline-secondary" type="submit">Undo</button>
+          <h5> Created: {{ todo.create_date }} <em >/ Deadline: {{ todo.deadline }}</em></h5>
+        {% endif %}
+      </form>
+      <h5 style="color: gray; margin-top: 10px;">Tags:
+      {% for tag in todo.tags.all %}
+        {{ tag.name }}
+      {% empty %}
+        There are no tags
       {% endfor %}
-      </tbody>
+      <a href="{% url 'schedule:task-update' todo.slug %}">UPDATE</a>
+      <a href="{% url 'schedule:task-delete' todo.slug %}">DELETE</a></h5>
+      </th>
+    </tr>
+    {% endfor %}
+   </tbody>
     </table>
     {% else %}
       <p>There are no tasks</p>
     {% endif %}
   {% endblock %}
+</body>
