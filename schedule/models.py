@@ -21,7 +21,7 @@ class Task(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, default=None, related_name="tasks")
 
     class Meta:
-        ordering = ["is_mark", "-create_date"]
+        ordering = ["-is_mark", "-create_date"]
 
     def __str__(self):
         return f"{self.content} {self.is_mark} {self.tags}"
