@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Tags <a style="margin-left: 150px;" class="btn btn-primary" href="{% url 'schedule:tag-create' %}">Add</a></h1>
+  <br>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Names</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if tags %}
+      {% for tag in tags %}
+        <tr>
+      <th scope="row">{{ tag.name }}</th>
+      <td><a class="btn btn-outline-primary"  href="{% url 'schedule:tag-update' tag.slug %}">Update</a></td>
+      <td><a class="btn btn-outline-danger" href="{% url 'schedule:tag-delete' tag.slug %}">Delete</a></td>
+      <td></td>
+    </tr>
+      {% endfor %}
+    {% else %}
+      <p>There are no tags</p>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}
